@@ -1,0 +1,175 @@
+/* ========================================= */
+/* 1. VARIÁVEIS E RESET GLOBAL */
+/* ========================================= */
+:root {
+    --primary-color: #0d47a1;
+    --primary-hover: #1565c0;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --bg-light: #f1f5f9;
+    --white: #ffffff;
+    --danger: #ef4444;
+    --success: #10b981;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background-color: var(--bg-light); color: var(--text-dark); height: 100vh; }
+
+/* ========================================= */
+/* 2. LAYOUT DASHBOARD (Desktop) */
+/* ========================================= */
+.dashboard-layout { display: flex; height: 100vh; overflow: hidden; position: relative; }
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: var(--white);
+    border-right: 1px solid #e2e8f0;
+    display: flex; flex-direction: column; padding: 20px;
+    transition: left 0.3s ease; z-index: 1000;
+}
+.brand { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); margin-bottom: 40px; padding-left: 10px; }
+
+.menu-item {
+    padding: 12px 15px; margin-bottom: 5px; border-radius: 8px;
+    color: var(--text-light); text-decoration: none; font-weight: 500;
+    display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s;
+}
+.menu-item:hover, .menu-item.active { background-color: #f1f5f9; color: var(--primary-color); }
+.menu-titulo { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; margin: 20px 0 10px 10px; }
+
+/* Conteúdo */
+.main-content {
+    flex: 1; background-color: #f8fafc; overflow-y: auto; padding: 30px; width: 100%;
+}
+.header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.user-profile { display: flex; align-items: center; gap: 10px; }
+.avatar-circle { width: 40px; height: 40px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+/* ========================================= */
+/* 3. COMPONENTES (Cards, Inputs, Botões) */
+/* ========================================= */
+.card {
+    background: white; padding: 25px; border-radius: 12px;
+    box-shadow: var(--shadow); margin-bottom: 25px; border: 1px solid #e2e8f0;
+}
+.card h3 { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; }
+
+.input-group { margin-bottom: 15px; }
+.input-group label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9rem; }
+.input-group input, .input-group select {
+    width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem;
+}
+
+button.btn-primary {
+    padding: 12px; background-color: var(--primary-color); color: white;
+    border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+button.btn-primary:hover { background-color: var(--primary-hover); }
+
+.btn-logout {
+    background: transparent; color: var(--danger); border: 1px solid var(--danger);
+    padding: 8px 15px; border-radius: 6px; cursor: pointer;
+}
+
+/* ========================================= */
+/* 4. TABELAS E BOTÕES DE AÇÃO (Desktop) */
+/* ========================================= */
+.card table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.card table th {
+    background-color: #f8fafc; color: #64748b; font-weight: 600; padding: 12px;
+    border-bottom: 2px solid #e2e8f0; text-align: left; font-size: 0.8rem; text-transform: uppercase;
+}
+.card table td { padding: 12px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; font-size: 0.9rem; }
+
+/* Botões Coloridos (Estilo Solicitado) */
+.actions-cell { display: flex; gap: 5px; } 
+
+.action-btn {
+    width: 32px; height: 32px; border-radius: 6px; border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1rem; transition: transform 0.2s;
+}
+.btn-pay { background-color: #dcfce7; color: #166534; }
+.btn-edit { background-color: #fef9c3; color: #854d0e; }
+.btn-delete { background-color: #fee2e2; color: #991b1b; }
+.action-btn:hover { transform: scale(1.1); }
+
+/* ========================================= */
+/* 5. RESPONSIVIDADE E CORREÇÕES MOBILE */
+/* ========================================= */
+
+.mobile-menu-btn { display: none; }
+.overlay { display: none; }
+
+@media (max-width: 768px) {
+    
+    /* --- Layout Geral --- */
+    .dashboard-layout { flex-direction: column; }
+    .sidebar { position: fixed; top: 0; left: -280px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.5); }
+    .sidebar.active { left: 0; }
+    
+    .mobile-menu-btn { display: block; background: none; border: none; font-size: 1.8rem; color: var(--primary-color); cursor: pointer; padding: 5px; }
+    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 900; }
+    .overlay.active { display: block; }
+
+    /* --- Ajustes de Conteúdo --- */
+    .main-content { padding: 10px; }
+    .header-top h2 { font-size: 1.1rem; margin: 0; }
+    .header-top p, .user-profile span, .user-profile #welcomeMsg, .user-profile #userRoleDisplay { display: none; }
+    
+    /* Força Grids a ficarem em coluna única */
+    .section-view > div {
+        grid-template-columns: 1fr !important;
+        display: flex !important; flex-direction: column; gap: 15px !important;
+    }
+
+    /* --- TABELA EM MODO CARD (O SEGREDO PARA NÃO DESLIZAR) --- */
+    /* Esconde o cabeçalho da tabela */
+    .card table thead { display: none; }
+    
+    /* Transforma a tabela em blocos */
+    .card table, .card table tbody, .card table tr, .card table td {
+        display: block; width: 100%;
+    }
+    
+    /* Cada linha vira um cartão */
+    .card table tr {
+        margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px;
+        background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 15px;
+    }
+    
+    /* As células ficam uma embaixo da outra */
+    .card table td {
+        padding: 8px 0; border-bottom: 1px dashed #eee;
+        display: flex; justify-content: space-between; align-items: center;
+        text-align: right;
+    }
+    .card table td:last-child { border-bottom: none; justify-content: flex-end; margin-top: 10px; }
+
+    /* Rótulos automáticos para saber o que é o dado */
+    .card table td:nth-child(1) { flex-direction: column; align-items: flex-start; gap: 5px; text-align: left; } /* Descrição */
+    .card table td:nth-child(2)::before { content: "Valor:"; font-weight: bold; color: #64748b; }
+    .card table td:nth-child(3)::before { content: "Vencimento:"; font-weight: bold; color: #64748b; }
+    .card table td:nth-child(4)::before { content: "Resp:"; font-weight: bold; color: #64748b; }
+    .card table td:nth-child(5)::before { content: "Status:"; font-weight: bold; color: #64748b; }
+
+    /* --- CORREÇÃO DO CALENDÁRIO NO MOBILE --- */
+    /* Garante que o calendário tenha altura */
+    #calendar { min-height: 500px; }
+    
+    /* Empilha o Header (Botões e Título) */
+    .fc-header-toolbar {
+        flex-direction: column; gap: 10px; align-items: center !important;
+    }
+    .fc-toolbar-chunk {
+        display: flex; justify-content: center; width: 100%; flex-wrap: wrap; gap: 5px;
+    }
+    .fc-toolbar-title { font-size: 1.1rem !important; }
+    
+    /* Modais Fullscreen no Mobile */
+    .card[style*="width: 400px"], .card[style*="width: 450px"], .card[style*="width: 500px"] {
+        width: 95% !important; max-height: 90vh; padding: 15px !important;
+    }
+}
