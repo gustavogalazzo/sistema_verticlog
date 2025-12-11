@@ -1,26 +1,26 @@
-// api/server.js
 const express = require('express')
-const cors = require('cors')
-const pool = require('./src/database/db')
+const cors = require('cors') // Importa a segurança
 const routes = require('./src/routes')
-require('dotenv').config()
 
 const app = express()
 
+// 1. Configuração de Segurança (CORS) - Permite tudo para facilitar
 app.use(cors())
-// Aumenta o limite para aceitar arquivos (PDFs/Imagens) até 10MB
-app.use(express.json({ limit: '10mb' }))
-app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
-// Avisamos o servidor para usar as rotas que criamos
+// 2. Permite que o servidor entenda JSON (dados do formulário)
+app.use(express.json({ limit: '50mb' })) // Aumenta limite para arquivos grandes
+
+// 3. Usa as rotas que criamos
 app.use(routes)
 
-// Teste de conexão visual
-pool
-  .query('SELECT NOW()')
-  .then(() => console.log('✅ Base de Dados conectada!'))
+// 4. Rota de teste simples (para saber se está vivo)
+app.get('/', (req, res) => {
+  res.send('🚀 API do Verticlog está rodando!')
+})
 
-const PORT = process.env.PORT || 3000
+// 5. Inicia o servidor
+const PORT = 3000
 app.listen(PORT, () => {
-  console.log(`\n🚀 Servidor rodando em: http://localhost:${PORT}`)
+  console.log(`🔥 Servidor rodando em http://localhost:${PORT}`)
+  console.log(`✅ Base de Dados conectada e pronta.`)
 })
